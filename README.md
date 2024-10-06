@@ -75,6 +75,14 @@ A face being born after a coface makes no sense.
 What python API there is, is copied from ripser and you do currently need to make sure all the numpy dtypes are double. Check out test.py for what that looks like. In the python case it takes the open star
 for you so no need to worry about that.
 
+To build the cython shared object do this. And in general you might want to change the compile flags to enable optimization (setup.py, Makefile).
+
+```
+python setup.py build_ext --inplace --debug
+```
+
+
+
 
 
 
