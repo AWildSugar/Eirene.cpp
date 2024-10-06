@@ -16,7 +16,7 @@ vripsRes = pyrene.vripsPersistence(distmat, a.shape[0])
 print(vripsRes)
 
 
-# relative persistence on an nsphere  
+# relative persistence on an nsphere 
 numCells = 6
 
 denseArr = np.zeros((numCells, numCells))

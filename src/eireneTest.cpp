@@ -1,7 +1,6 @@
 #include "eirene.hpp"
 #include <sstream>
 #include <iostream>
-#include <nlohmann/json.hpp>
 #include <string>
 #include <fstream>
 
@@ -122,20 +121,6 @@ auto lingareddyComplex()
     return comp;
 }
 
-using json = nlohmann::json;
-auto fromNDJSON(const char* fileName) {
-    std::ifstream infile(fileName);
-    
-    json data = json::parse(infile);
-    data["indPtr"];
-
-    spla::SparseBool testComplex(data["rowInds"], data["indPtr"], data["indPtr"].size() - 1);
-    eirene::Complex comp;
-    eirene::toComplex(testComplex, data["filtVec"], data["eulerVec"], comp, true);
-    
-    return eirene::cellularPersistence(comp);
-}
-
 auto barbellComplexRelativeHom()
 {
     /*
@@ -153,6 +138,7 @@ auto barbellComplexRelativeHom()
     std::cerr << printSparseBool(testComplex) << std::endl;
 
     auto testFilt = std::vector<double>(5, 0.01);
+    testFilt[3] = 0.02;
     auto eulerVec = std::vector<indsz_t>{3, 2};
 
     eirene::Complex comp;
@@ -160,21 +146,21 @@ auto barbellComplexRelativeHom()
 
     auto subset = std::vector<indsz_t>{1, 3, 4};
 
-    const auto openComp = eirene::openStar(subset, comp);
-    const std::vector<eirene::MorseReducedResult> res = eirene::relativeCellularPersistence(comp, openComp);
+    const auto star = eirene::openStar(subset, comp);
+    const std::vector<eirene::MorseReducedResult> res = eirene::relativeCellularPersistence(comp, star);
 
     return res;
 }
 
 int main()
 {
-    auto res1 = fromNDJSON("./comp0.json");
-
     auto lingComp = lingareddyComplex();
     auto subset = std::vector<indsz_t>{1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12};
 
     const auto openComp = eirene::openStar(subset, lingComp);
     const std::vector<eirene::MorseReducedResult> res = eirene::relativeCellularPersistence(lingComp, openComp);
+
+    const std::vector<eirene::MorseReducedResult> res2 = barbellComplexRelativeHom();
 
     return 0;
 }
