@@ -81,6 +81,12 @@ To build the cython shared object do this. And in general you might want to chan
 python setup.py build_ext --inplace --debug
 ```
 
+TODO:
+More sheaf theoretic manipulations.
+Relative vr complexes?
+Less bugs?
+Faster?
+
 
 
 
