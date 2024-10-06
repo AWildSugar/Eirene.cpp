@@ -61,7 +61,7 @@ The nontrivial 1-dimensional relative homology can be seen in res:
       }
     }
     birthDeath = size=2 {
-      [0] = 0.02
+      [0] = 0.01
       [1] = +Inf
     }
   }
